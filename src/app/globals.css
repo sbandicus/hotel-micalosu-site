@@ -1,26 +1,54 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-gold: #c5a059;
+  --color-beige: #fefcfb;
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Correzione definitiva per offset degli ancoraggi */
+  section[id] {
+    scroll-margin-top: 100px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .vertical-text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom DayPicker Styling */
+.rdp {
+  --rdp-cell-size: 40px;
+  --rdp-accent-color: #c5a059;
+  --rdp-background-color: #fefcfb;
+  margin: 0;
+}
+
+.rdp-day_selected, .rdp-day_selected:focus-visible, .rdp-day_selected:hover {
+  background-color: var(--rdp-accent-color);
+  color: white;
+  border-radius: 50%;
+}
+
+.rdp-button:hover:not([disabled]):not(.rdp-day_selected) {
+  background-color: rgba(197, 160, 89, 0.1);
+  border-radius: 50%;
 }

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "matrimoniale-standard",
+    "name": "Camera Matrimoniale Standard",
+    "description": "Accogliente ed elegante, perfetta per un soggiorno rilassante.",
+    "price": 120,
+    "image": "/images/camere.jpg",
+    "capacity": 2
+  },
+  {
+    "id": "suite-vista-mare",
+    "name": "Suite Vista Mare",
+    "description": "Ampia suite con una vista mozzafiato sul Golfo di Cannigione.",
+    "price": 250,
+    "image": "/images/suite.jpg",
+    "capacity": 3
+  },
+  {
+    "id": "matrimoniale-giardino",
+    "name": "Matrimoniale con Giardino",
+    "description": "Accesso diretto al giardino fiorito dell'hotel.",
+    "price": 150,
+    "image": "/images/giardino.jpg",
+    "capacity": 2
+  }
+]
