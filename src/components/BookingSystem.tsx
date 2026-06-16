@@ -86,10 +86,10 @@ export default function BookingSystem() {
   return (
     <div className="flex flex-col h-full bg-white rounded-2xl">
       {/* Contenitore Griglia Principale */}
-      <div className="grid lg:grid-cols-2 gap-0 min-h-[600px] overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
+      <div className="grid lg:grid-cols-2 gap-0 min-h-[650px] overflow-hidden rounded-2xl border border-gray-100 shadow-sm items-stretch">
         
         {/* Colonna Sinistra: Immagine e Info Stanza */}
-        <div className="relative h-64 lg:h-auto bg-gray-50 border-r border-gray-100">
+        <div className="relative min-h-[300px] lg:min-h-full bg-gray-50 border-r border-gray-100 h-full">
           {selectedRoomObj && (
             <>
               <Image 
@@ -152,8 +152,20 @@ export default function BookingSystem() {
                 </div>
               </div>
 
-              <div className="flex justify-center pt-2 overflow-x-hidden">
-                <div className="scale-[0.8] xs:scale-[0.85] sm:scale-95 lg:scale-100 origin-center">
+              <div className="flex justify-center pt-2 overflow-visible">
+                <style jsx global>{`
+                  .rdp {
+                    margin: 0;
+                    --rdp-cell-size: 38px;
+                    --rdp-accent-color: #c5a059;
+                    --rdp-background-color: #f9f6f2;
+                  }
+                  .rdp-months { justify-content: center; }
+                  @media (max-width: 640px) {
+                    .rdp { --rdp-cell-size: 32px; }
+                  }
+                `}</style>
+                <div className="scale-[0.85] xs:scale-[0.9] sm:scale-95 lg:scale-100 origin-center">
                   <DayPicker
                     mode="range"
                     selected={range}

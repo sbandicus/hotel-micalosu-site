@@ -13,6 +13,10 @@ import {
 
 export default function Home() {
   const heroRef = useRef(null);
+  
+  // Rimuoviamo l'autofocus al caricamento o comportamenti che forzano lo scroll
+  // Se c'è un elemento che ruba il focus, lo neutralizziamo qui.
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
