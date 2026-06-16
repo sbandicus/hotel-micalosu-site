@@ -50,7 +50,7 @@ export default function Home() {
               Micalosu
             </h1>
             <p className="text-lg md:text-2xl font-light tracking-[0.5em] uppercase mb-12">
-              Sardinia Luxury Escape
+              Un'oasi di lusso in Sardegna
             </p>
             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
               <a 
@@ -71,7 +71,7 @@ export default function Home() {
               transition={{ repeat: Infinity, duration: 2 }}
               className="flex flex-col items-center gap-4"
             >
-              <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 vertical-text font-bold">Scroll</span>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-white/60 vertical-text font-bold">Scorri</span>
               <div className="w-px h-12 bg-white/20" />
             </motion.div>
         </div>
@@ -291,7 +291,7 @@ export default function Home() {
 
             <div className="md:col-span-4">
               <ScrollReveal delay={0.2}>
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-10 text-gold">News & Offers</h4>
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-10 text-gold">Novità & Offerte</h4>
                 <p className="text-xs text-gray-500 mb-8 uppercase tracking-widest leading-relaxed font-sans">Iscriviti per ricevere novità sulla Gallura e offerte riservate.</p>
                 <form className="relative">
                   <input 
@@ -299,7 +299,7 @@ export default function Home() {
                     placeholder="E-MAIL" 
                     className="w-full bg-transparent border-b border-white/20 py-4 text-xs font-bold tracking-[0.3em] focus:border-gold outline-none transition-colors"
                   />
-                  <button className="absolute right-0 top-1/2 -translate-y-1/2 text-gold font-bold text-[10px] uppercase tracking-widest hover:text-white transition-colors">Join</button>
+                  <button className="absolute right-0 top-1/2 -translate-y-1/2 text-gold font-bold text-[10px] uppercase tracking-widest hover:text-white transition-colors">Iscriviti</button>
                 </form>
               </ScrollReveal>
             </div>

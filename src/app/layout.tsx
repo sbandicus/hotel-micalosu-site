@@ -15,8 +15,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Hotel Micalosu | Luxury Experience in Cannigione, Sardinia",
-  description: "Experience the authentic essence of Gallura at Hotel Micalosu. Modern minimalist design, gourmet restaurant, and breathtaking views of La Maddalena archipelago.",
+  title: "Hotel Micalosu | Esperienza di Lusso a Cannigione, Sardegna",
+  description: "Vivi l'essenza autentica della Gallura all'Hotel Micalosu. Camere panoramiche, cucina d'eccellenza e vista mozzafiato sull'Arcipelago di La Maddalena.",
 };
 
 export default function RootLayout({
