@@ -108,52 +108,52 @@ export default function BookingSystem() {
         </div>
 
         {/* Colonna Destra: Form e Selezione */}
-        <div className="p-8 lg:p-12 flex flex-col justify-between bg-white">
+        <div className="p-5 sm:p-8 lg:p-12 flex flex-col justify-between bg-white">
           {step === 1 ? (
-            <div className="space-y-8 animate-fade-in">
+            <div className="space-y-6 sm:space-y-8 animate-fade-in">
               <div>
-                <label className="block text-[9px] font-black uppercase tracking-[0.3em] text-gold mb-4 text-center lg:text-left">1. Seleziona Tipologia</label>
+                <label className="block text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gold mb-4 text-center lg:text-left">1. Seleziona Tipologia</label>
                 <div className="grid grid-cols-1 gap-2">
                   {rooms.map(room => (
                     <button
                       key={room.id}
                       onClick={() => setSelectedRoom(room.id)}
-                      className={`p-4 rounded-xl border text-left transition-all relative ${
+                      className={`p-3 sm:p-4 rounded-xl border text-left transition-all relative ${
                         selectedRoom === room.id 
                           ? 'border-gold bg-gold/5 ring-1 ring-gold/20' 
                           : 'border-gray-100 hover:border-gold/30'
                       }`}
                     >
-                      <div className="flex justify-between items-center">
-                        <span className="font-bold text-xs tracking-wide text-gray-900">{room.name}</span>
-                        <span className="text-[10px] text-gray-400 font-bold italic font-serif">€{room.price}</span>
+                      <div className="flex justify-between items-center gap-2">
+                        <span className="font-bold text-[11px] sm:text-xs tracking-wide text-gray-900 truncate">{room.name}</span>
+                        <span className="text-[10px] text-gray-400 font-bold italic font-serif shrink-0">€{room.price}</span>
                       </div>
                     </button>
                   ))}
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <label className="block text-[9px] font-black uppercase tracking-[0.3em] text-gold mb-4 text-center sm:text-left">2. Ospiti</label>
-                  <div className="flex items-center justify-between p-3 bg-beige/50 rounded-xl border border-gray-50">
+                  <label className="block text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gold mb-3 sm:mb-4 text-center sm:text-left">2. Ospiti</label>
+                  <div className="flex items-center justify-between p-2 sm:p-3 bg-beige/50 rounded-xl border border-gray-50">
                     <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm hover:text-gold transition-colors"><Minus size={14} /></button>
                     <span className="font-bold text-sm">{guests}</span>
                     <button onClick={() => setGuests(Math.min(4, guests + 1))} className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm hover:text-gold transition-colors"><Plus size={14} /></button>
                   </div>
                 </div>
-                <div className="flex flex-col justify-end">
-                    <div className="text-center sm:text-right">
-                        <span className="block text-[9px] font-black uppercase tracking-[0.3em] text-gold mb-4">Check-in / Out</span>
-                        <div className="text-xs font-bold text-gray-500 py-3">
+                <div className="flex flex-col justify-center sm:justify-end">
+                    <div className="text-center sm:text-right pt-2 sm:pt-0">
+                        <span className="block text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gold mb-3 sm:mb-4">Check-in / Out</span>
+                        <div className="text-xs font-bold text-gray-500 py-1 sm:py-3">
                             {range?.from ? format(range.from, 'dd/MM') : '--'} → {range?.to ? format(range.to, 'dd/MM') : '--'}
                         </div>
                     </div>
                 </div>
               </div>
 
-              <div className="flex justify-center pt-4 overflow-x-auto max-w-full">
-                <div className="scale-[0.85] sm:scale-95 lg:scale-100 origin-center">
+              <div className="flex justify-center pt-2 overflow-x-hidden">
+                <div className="scale-[0.8] xs:scale-[0.85] sm:scale-95 lg:scale-100 origin-center">
                   <DayPicker
                     mode="range"
                     selected={range}
@@ -198,10 +198,10 @@ export default function BookingSystem() {
                   </div>
                 </div>
 
-                <div className="bg-beige p-6 rounded-2xl border border-gold/10">
-                    <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-gold mb-2">
-                        <span>Totale Stimato</span>
-                        <span>€{(selectedRoomObj?.price || 0) * (range?.from && range?.to ? Math.ceil((range.to.getTime() - range.from.getTime()) / (1000 * 60 * 60 * 24)) : 0)}</span>
+                <div className="bg-beige p-4 sm:p-6 rounded-2xl border border-gold/10">
+                    <div className="flex justify-between items-center text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-gold mb-2 gap-4">
+                        <span className="shrink-0">Totale Stimato</span>
+                        <span className="text-right">€{(selectedRoomObj?.price || 0) * (range?.from && range?.to ? Math.ceil((range.to.getTime() - range.from.getTime()) / (1000 * 60 * 60 * 24)) : 0)}</span>
                     </div>
                     <p className="text-[8px] text-gray-400 uppercase tracking-widest italic leading-relaxed">
                         Prezzo basato su {range?.from && range?.to ? Math.ceil((range.to.getTime() - range.from.getTime()) / (1000 * 60 * 60 * 24)) : 0} notti per {guests} persone.
