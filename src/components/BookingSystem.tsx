@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { format, addDays, startOfDay } from 'date-fns';
-import { Calendar as CalendarIcon, Users, CheckCircle, Loader2, ArrowRight, Minus, Plus } from 'lucide-react';
+import { CheckCircle, Loader2, ArrowRight, Minus, Plus } from 'lucide-react';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import Image from 'next/image';
@@ -63,11 +63,11 @@ export default function BookingSystem() {
 
   if (step === 3) {
     return (
-      <div className="bg-white p-12 text-center flex flex-col items-center min-h-[500px] justify-center">
+      <div className="bg-white p-12 text-center flex flex-col items-center min-h-[500px] justify-center rounded-2xl">
         <div className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center mb-6">
             <CheckCircle className="text-green-500 w-10 h-10" />
         </div>
-        <h3 className="text-3xl font-serif mb-4">Prenotazione Inviata!</h3>
+        <h3 className="text-3xl font-serif mb-4 text-gray-900">Prenotazione Inviata!</h3>
         <p className="text-gray-500 max-w-xs mx-auto mb-10 text-sm font-light">
           Grazie {details.name.split(' ')[0]}. Riceverai presto una conferma via email.
         </p>
@@ -84,94 +84,113 @@ export default function BookingSystem() {
   const selectedRoomObj = rooms.find(r => r.id === selectedRoom);
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-2xl">
-      {/* Contenitore Griglia Principale */}
-      <div className="grid md:grid-cols-2 gap-0 min-h-[650px] overflow-hidden rounded-2xl border border-gray-100 shadow-sm items-stretch">
+    <div className="w-full bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+      <div className="flex flex-col lg:flex-row min-h-[700px]">
         
-        {/* Colonna Sinistra: Immagine e Info Stanza */}
-        <div className="relative min-h-[400px] md:min-h-full bg-gray-50 border-r border-gray-100 h-full overflow-hidden">
+        {/* LATO SINISTRO: ANTEPRIMA CAMERA */}
+        <div className="relative w-full lg:w-2/5 min-h-[300px] lg:min-h-full overflow-hidden">
           {selectedRoomObj && (
             <>
               <Image 
                 src={selectedRoomObj.image} 
                 alt={selectedRoomObj.name} 
                 fill 
-                className="object-cover transition-opacity duration-500 scale-110"
+                className="object-cover transition-transform duration-1000 scale-105"
               />
-              <div className="absolute inset-0 bg-black/30" />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 sm:p-10 text-white z-10">
+              {/* Overlay per leggibilità */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent lg:bg-gradient-to-r lg:from-black/80 lg:to-transparent" />
+              
+              <div className="absolute bottom-0 left-0 p-8 sm:p-12 w-full lg:h-full lg:flex lg:flex-col lg:justify-end">
                 <div className="max-w-xs">
-                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gold mb-3 block opacity-90">La tua scelta</span>
-                  <h4 className="text-2xl sm:text-3xl font-serif mb-3 leading-tight drop-shadow-lg">{selectedRoomObj.name}</h4>
-                  <p className="text-xs sm:text-sm text-white/80 font-light leading-relaxed drop-shadow-md">{selectedRoomObj.description}</p>
+                  <span className="inline-block text-[10px] font-black uppercase tracking-[0.3em] text-gold mb-3 px-3 py-1 bg-black/40 backdrop-blur-sm rounded-full">
+                    La tua selezione
+                  </span>
+                  <h4 className="text-3xl sm:text-4xl font-serif text-white mb-3 drop-shadow-lg leading-tight">
+                    {selectedRoomObj.name}
+                  </h4>
+                  <p className="text-sm text-white/70 font-light leading-relaxed drop-shadow-md">
+                    {selectedRoomObj.description}
+                  </p>
                 </div>
               </div>
             </>
           )}
         </div>
 
-        {/* Colonna Destra: Form e Selezione */}
-        <div className="p-5 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-between bg-white relative">
+        {/* LATO DESTRO: FORM DI PRENOTAZIONE */}
+        <div className="w-full lg:w-3/5 p-6 sm:p-10 lg:p-14 bg-white">
           {step === 1 ? (
-            <div className="space-y-6 sm:space-y-8 animate-fade-in">
+            <div className="animate-fade-in space-y-10">
+              {/* Step 1: Tipologia */}
               <div>
-                <label className="block text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gold mb-4 text-center md:text-left">1. Seleziona Tipologia</label>
-                <div className="grid grid-cols-1 gap-2">
+                <header className="flex items-center gap-4 mb-6">
+                  <span className="w-8 h-8 rounded-full bg-gold/10 text-gold flex items-center justify-center text-[10px] font-black">01</span>
+                  <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Scegli la tua Camera</h5>
+                </header>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {rooms.map(room => (
                     <button
                       key={room.id}
                       onClick={() => setSelectedRoom(room.id)}
-                      className={`p-3 sm:p-4 rounded-xl border text-left transition-all relative ${
+                      className={ \`p-4 rounded-xl border-2 transition-all text-left \${
                         selectedRoom === room.id 
-                          ? 'border-gold bg-gold/5 ring-1 ring-gold/20' 
-                          : 'border-gray-100 hover:border-gold/30'
-                      }`}
+                          ? 'border-gold bg-gold/5 shadow-md' 
+                          : 'border-gray-50 hover:border-gray-200'
+                      }\` }
                     >
-                      <div className="flex justify-between items-center gap-2">
-                        <span className="font-bold text-[11px] sm:text-xs tracking-wide text-gray-900 truncate">{room.name}</span>
-                        <span className="text-[10px] text-gray-400 font-bold italic font-serif shrink-0">€{room.price}</span>
-                      </div>
+                      <p className="font-bold text-[11px] uppercase tracking-wider text-gray-900 mb-1">{room.name}</p>
+                      <p className="text-[10px] text-gold font-black italic">€{room.price}</p>
                     </button>
                   ))}
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                <div>
-                  <label className="block text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gold mb-3 sm:mb-4 text-center sm:text-left">2. Ospiti</label>
-                  <div className="flex items-center justify-between p-2 sm:p-3 bg-beige/50 rounded-xl border border-gray-50">
-                    <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm hover:text-gold transition-colors"><Minus size={14} /></button>
-                    <span className="font-bold text-sm">{guests}</span>
-                    <button onClick={() => setGuests(Math.min(4, guests + 1))} className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm hover:text-gold transition-colors"><Plus size={14} /></button>
+              {/* Step 2: Date e Ospiti */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div className="flex flex-col">
+                  <header className="flex items-center gap-4 mb-6">
+                    <span className="w-8 h-8 rounded-full bg-gold/10 text-gold flex items-center justify-center text-[10px] font-black">02</span>
+                    <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Dettagli Soggiorno</h5>
+                  </header>
+                  
+                  {/* Numero Ospiti */}
+                  <div className="mb-8">
+                    <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 block mb-3">Ospiti</label>
+                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100 max-w-[160px]">
+                      <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center hover:text-gold"><Minus size={14} /></button>
+                      <span className="font-bold text-sm text-gray-800">{guests}</span>
+                      <button onClick={() => setGuests(Math.min(4, guests + 1))} className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center hover:text-gold"><Plus size={14} /></button>
+                    </div>
+                  </div>
+
+                  {/* Riepilogo Date */}
+                  <div>
+                    <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 block mb-3">Check-in / Out</label>
+                    <div className="text-xl font-serif text-gray-900">
+                      {range?.from ? format(range.from, 'dd MMM') : '--'} 
+                      <span className="mx-3 text-gold">→</span>
+                      {range?.to ? format(range.to, 'dd MMM') : '--'}
+                    </div>
                   </div>
                 </div>
-                <div className="flex flex-col justify-center sm:justify-end">
-                    <div className="text-center sm:text-right pt-2 sm:pt-0">
-                        <span className="block text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gold mb-3 sm:mb-4">Check-in / Out</span>
-                        <div className="text-xs font-bold text-gray-500 py-1 sm:py-3">
-                            {range?.from ? format(range.from, 'dd/MM') : '--'} → {range?.to ? format(range.to, 'dd/MM') : '--'}
-                        </div>
-                    </div>
-                </div>
-              </div>
 
-              <div className="flex justify-center pt-2 overflow-hidden">
-                <style jsx global>{`
-                  .rdp {
-                    margin: 0;
-                    --rdp-cell-size: 38px;
-                    --rdp-accent-color: #c5a059;
-                    --rdp-background-color: #f9f6f2;
-                  }
-                  .rdp-months { justify-content: center; }
-                  @media (max-width: 1024px) {
-                    .rdp { --rdp-cell-size: 32px; }
-                  }
-                  @media (max-width: 640px) {
-                    .rdp { --rdp-cell-size: 28px; }
-                  }
-                `}</style>
-                <div className="scale-[0.8] xs:scale-[0.9] sm:scale-90 md:scale-[0.85] lg:scale-100 origin-center">
+                {/* Calendario */}
+                <div className="flex justify-center md:justify-end">
+                  <style jsx global>{\`
+                    .rdp {
+                      margin: 0;
+                      --rdp-cell-size: 36px;
+                      --rdp-accent-color: #c5a059;
+                      --rdp-background-color: #fcfaf7;
+                      font-family: inherit;
+                    }
+                    .rdp-day_selected { background-color: var(--rdp-accent-color) !important; }
+                    .rdp-button:hover:not([disabled]):not(.rdp-day_selected) { background-color: #f9f6f2; }
+                    .rdp-head_cell { font-size: 10px; font-weight: 800; color: #aaa; text-transform: uppercase; }
+                    @media (max-width: 640px) {
+                      .rdp { --rdp-cell-size: 32px; }
+                    }
+                  \`}</style>
                   <DayPicker
                     mode="range"
                     selected={range}
@@ -181,64 +200,66 @@ export default function BookingSystem() {
                 </div>
               </div>
 
+              {/* Azione Finale Step 1 */}
               <button 
                 onClick={checkAvailability}
                 disabled={!range?.from || !range?.to || loading}
-                className="w-full flex items-center justify-center gap-4 bg-black text-white p-5 rounded-full hover:bg-gold transition-all duration-300 disabled:opacity-30 shadow-xl"
+                className="w-full h-16 bg-black text-white rounded-full flex items-center justify-center gap-4 hover:bg-gold transition-all duration-500 disabled:opacity-20 shadow-xl group"
               >
-                <span className="text-[10px] font-black uppercase tracking-[0.3em]">
-                    {loading ? 'Verifica in corso...' : 'Continua Prenotazione'}
+                <span className="text-[11px] font-black uppercase tracking-[0.3em]">
+                    {loading ? 'Elaborazione...' : 'Procedi alla Conferma'}
                 </span>
-                {!loading && <ArrowRight size={16} />}
-                {loading && <Loader2 size={16} className="animate-spin" />}
+                {!loading && <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />}
+                {loading && <Loader2 size={18} className="animate-spin" />}
               </button>
             </div>
           ) : (
-            <form onSubmit={submitBooking} className="space-y-8 animate-fade-in h-full flex flex-col justify-between">
-              <div className="space-y-8">
-                <div>
-                  <h4 className="text-xl font-serif mb-2">I tuoi Dettagli</h4>
-                  <p className="text-[9px] text-gray-400 uppercase tracking-widest font-bold">Completa la richiesta di prenotazione</p>
+            <form onSubmit={submitBooking} className="animate-fade-in h-full flex flex-col justify-between space-y-12">
+              <div className="space-y-12">
+                <header>
+                  <h4 className="text-3xl font-serif text-gray-900 mb-2">Quasi Fatto</h4>
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-gold">Inserisci i tuoi dati per riservare la camera</p>
+                </header>
+
+                <div className="grid grid-cols-1 gap-8">
+                  <div className="relative border-b border-gray-100 focus-within:border-gold transition-colors">
+                    <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 block mb-2">Nome e Cognome</label>
+                    <input required type="text" value={details.name} onChange={(e) => setDetails({...details, name: e.target.value})} className="w-full bg-transparent py-2 outline-none text-sm font-bold text-gray-900" />
+                  </div>
+                  <div className="relative border-b border-gray-100 focus-within:border-gold transition-colors">
+                    <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 block mb-2">Email</label>
+                    <input required type="email" value={details.email} onChange={(e) => setDetails({...details, email: e.target.value})} className="w-full bg-transparent py-2 outline-none text-sm font-bold text-gray-900" />
+                  </div>
+                  <div className="relative border-b border-gray-100 focus-within:border-gold transition-colors">
+                    <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 block mb-2">Telefono</label>
+                    <input required type="tel" value={details.phone} onChange={(e) => setDetails({...details, phone: e.target.value})} className="w-full bg-transparent py-2 outline-none text-sm font-bold text-gray-900" />
+                  </div>
                 </div>
 
-                <div className="space-y-6">
-                  <div className="relative">
-                    <input required type="text" value={details.name} onChange={(e) => setDetails({...details, name: e.target.value})} placeholder=" " className="peer w-full bg-transparent border-b border-gray-100 py-3 outline-none focus:border-gold transition-colors text-xs font-bold" />
-                    <label className="absolute left-0 top-3 text-[9px] font-black uppercase tracking-[0.2em] text-gray-300 peer-focus:text-gold peer-focus:-translate-y-6 peer-[:not(:placeholder-shown)]:-translate-y-6 transition-all pointer-events-none">Nome Completo</label>
-                  </div>
-                  <div className="relative">
-                    <input required type="email" value={details.email} onChange={(e) => setDetails({...details, email: e.target.value})} placeholder=" " className="peer w-full bg-transparent border-b border-gray-100 py-3 outline-none focus:border-gold transition-colors text-xs font-bold" />
-                    <label className="absolute left-0 top-3 text-[9px] font-black uppercase tracking-[0.2em] text-gray-300 peer-focus:text-gold peer-focus:-translate-y-6 peer-[:not(:placeholder-shown)]:-translate-y-6 transition-all pointer-events-none">Indirizzo Email</label>
-                  </div>
-                  <div className="relative">
-                    <input required type="tel" value={details.phone} onChange={(e) => setDetails({...details, phone: e.target.value})} placeholder=" " className="peer w-full bg-transparent border-b border-gray-100 py-3 outline-none focus:border-gold transition-colors text-xs font-bold" />
-                    <label className="absolute left-0 top-3 text-[9px] font-black uppercase tracking-[0.2em] text-gray-300 peer-focus:text-gold peer-focus:-translate-y-6 peer-[:not(:placeholder-shown)]:-translate-y-6 transition-all pointer-events-none">Telefono</label>
-                  </div>
-                </div>
-
-                <div className="bg-beige p-4 sm:p-6 rounded-2xl border border-gold/10">
-                    <div className="flex justify-between items-center text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-gold mb-2 gap-4">
-                        <span className="shrink-0">Totale Stimato</span>
-                        <span className="text-right">€{(selectedRoomObj?.price || 0) * (range?.from && range?.to ? Math.ceil((range.to.getTime() - range.from.getTime()) / (1000 * 60 * 60 * 24)) : 0)}</span>
+                <div className="p-6 bg-beige/30 rounded-2xl border border-gold/10">
+                    <div className="flex justify-between items-end mb-4">
+                        <div>
+                            <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 mb-1">Prezzo Totale Stimato</p>
+                            <p className="text-3xl font-serif text-gray-900">€{(selectedRoomObj?.price || 0) * (range?.from && range?.to ? Math.ceil((range.to.getTime() - range.from.getTime()) / (1000 * 60 * 60 * 24)) : 0)}</p>
+                        </div>
+                        <p className="text-[10px] text-gold font-bold italic">
+                            {range?.from && range?.to ? Math.ceil((range.to.getTime() - range.from.getTime()) / (1000 * 60 * 60 * 24)) : 0} Notti / {guests} Persone
+                        </p>
                     </div>
-                    <p className="text-[8px] text-gray-400 uppercase tracking-widest italic leading-relaxed">
-                        Prezzo basato su {range?.from && range?.to ? Math.ceil((range.to.getTime() - range.from.getTime()) / (1000 * 60 * 60 * 24)) : 0} notti per {guests} persone.
-                    </p>
                 </div>
               </div>
 
-              <div className="pt-6 flex justify-between items-center">
-                <button type="button" onClick={() => setStep(1)} className="text-[9px] font-black uppercase tracking-widest text-gray-300 hover:text-gold transition-colors underline underline-offset-8">Indietro</button>
+              <div className="flex items-center justify-between gap-6">
+                <button type="button" onClick={() => setStep(1)} className="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-black transition-colors">Annulla</button>
                 <button 
                   type="submit"
                   disabled={loading}
-                  className="bg-black text-white px-10 py-5 rounded-full hover:bg-gold transition-all duration-500 shadow-xl flex items-center gap-3"
+                  className="flex-1 max-w-[280px] h-14 bg-black text-white rounded-full flex items-center justify-center gap-3 hover:bg-gold transition-all duration-500 shadow-lg"
                 >
                   <span className="text-[10px] font-black uppercase tracking-[0.2em]">
-                    {loading ? 'Invio...' : 'Conferma'}
+                    {loading ? 'Inviando...' : 'Conferma Prenotazione'}
                   </span>
                   {!loading && <ArrowRight size={14} />}
-                  {loading && <Loader2 size={14} className="animate-spin" />}
                 </button>
               </div>
             </form>
@@ -246,5 +267,3 @@ export default function BookingSystem() {
         </div>
       </div>
     </div>
-  );
-}
