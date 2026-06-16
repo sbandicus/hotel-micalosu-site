@@ -97,7 +97,6 @@ export default function BookingSystem() {
                 fill 
                 className="object-cover transition-transform duration-1000 scale-105"
               />
-              {/* Overlay per leggibilità */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent lg:bg-gradient-to-r lg:from-black/80 lg:to-transparent" />
               
               <div className="absolute bottom-0 left-0 p-8 sm:p-12 w-full lg:h-full lg:flex lg:flex-col lg:justify-end">
@@ -121,7 +120,6 @@ export default function BookingSystem() {
         <div className="w-full lg:w-3/5 p-6 sm:p-10 lg:p-14 bg-white">
           {step === 1 ? (
             <div className="animate-fade-in space-y-10">
-              {/* Step 1: Tipologia */}
               <div>
                 <header className="flex items-center gap-4 mb-6">
                   <span className="w-8 h-8 rounded-full bg-gold/10 text-gold flex items-center justify-center text-[10px] font-black">01</span>
@@ -132,11 +130,11 @@ export default function BookingSystem() {
                     <button
                       key={room.id}
                       onClick={() => setSelectedRoom(room.id)}
-                      className={ \`p-4 rounded-xl border-2 transition-all text-left \${
+                      className={`p-4 rounded-xl border-2 transition-all text-left ${
                         selectedRoom === room.id 
                           ? 'border-gold bg-gold/5 shadow-md' 
                           : 'border-gray-50 hover:border-gray-200'
-                      }\` }
+                      }`}
                     >
                       <p className="font-bold text-[11px] uppercase tracking-wider text-gray-900 mb-1">{room.name}</p>
                       <p className="text-[10px] text-gold font-black italic">€{room.price}</p>
@@ -145,7 +143,6 @@ export default function BookingSystem() {
                 </div>
               </div>
 
-              {/* Step 2: Date e Ospiti */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="flex flex-col">
                   <header className="flex items-center gap-4 mb-6">
@@ -153,7 +150,6 @@ export default function BookingSystem() {
                     <h5 className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-400">Dettagli Soggiorno</h5>
                   </header>
                   
-                  {/* Numero Ospiti */}
                   <div className="mb-8">
                     <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 block mb-3">Ospiti</label>
                     <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl border border-gray-100 max-w-[160px]">
@@ -163,7 +159,6 @@ export default function BookingSystem() {
                     </div>
                   </div>
 
-                  {/* Riepilogo Date */}
                   <div>
                     <label className="text-[9px] font-black uppercase tracking-widest text-gray-400 block mb-3">Check-in / Out</label>
                     <div className="text-xl font-serif text-gray-900">
@@ -174,9 +169,8 @@ export default function BookingSystem() {
                   </div>
                 </div>
 
-                {/* Calendario */}
                 <div className="flex justify-center md:justify-end">
-                  <style jsx global>{\`
+                  <style jsx global>{`
                     .rdp {
                       margin: 0;
                       --rdp-cell-size: 36px;
@@ -190,7 +184,7 @@ export default function BookingSystem() {
                     @media (max-width: 640px) {
                       .rdp { --rdp-cell-size: 32px; }
                     }
-                  \`}</style>
+                  `}</style>
                   <DayPicker
                     mode="range"
                     selected={range}
@@ -200,7 +194,6 @@ export default function BookingSystem() {
                 </div>
               </div>
 
-              {/* Azione Finale Step 1 */}
               <button 
                 onClick={checkAvailability}
                 disabled={!range?.from || !range?.to || loading}
@@ -267,3 +260,5 @@ export default function BookingSystem() {
         </div>
       </div>
     </div>
+  );
+}
