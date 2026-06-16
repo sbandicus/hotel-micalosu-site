@@ -89,19 +89,22 @@ export default function BookingSystem() {
       <div className="grid lg:grid-cols-2 gap-0 min-h-[650px] overflow-hidden rounded-2xl border border-gray-100 shadow-sm items-stretch">
         
         {/* Colonna Sinistra: Immagine e Info Stanza */}
-        <div className="relative min-h-[300px] lg:min-h-full bg-gray-50 border-r border-gray-100 h-full">
+        <div className="relative min-h-[350px] lg:min-h-full bg-gray-50 border-r border-gray-100 h-full overflow-hidden">
           {selectedRoomObj && (
             <>
               <Image 
                 src={selectedRoomObj.image} 
                 alt={selectedRoomObj.name} 
                 fill 
-                className="object-cover transition-opacity duration-500"
+                className="object-cover transition-opacity duration-500 scale-110"
               />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-8 text-white">
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gold mb-2 block">La tua scelta</span>
-                <h4 className="text-2xl font-serif mb-2">{selectedRoomObj.name}</h4>
-                <p className="text-xs text-white/70 font-light">{selectedRoomObj.description}</p>
+              <div className="absolute inset-0 bg-black/30" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 sm:p-10 text-white z-10">
+                <div className="max-w-xs">
+                  <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gold mb-3 block opacity-90">La tua scelta</span>
+                  <h4 className="text-2xl sm:text-3xl font-serif mb-3 leading-tight drop-shadow-lg">{selectedRoomObj.name}</h4>
+                  <p className="text-xs sm:text-sm text-white/80 font-light leading-relaxed drop-shadow-md">{selectedRoomObj.description}</p>
+                </div>
               </div>
             </>
           )}
