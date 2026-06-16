@@ -43,7 +43,7 @@ export default function Home() {
         <motion.div style={{ opacity }} className="relative text-center text-white px-6 z-10">
           <ScrollReveal delay={0.2}>
             <div className="flex justify-center space-x-1 mb-8">
-              {[...Array(4)].map((_, i) => <Star key={i} size={14} fill="#c5a059" color="#c5a059" />)}
+              {[...Array(3)].map((_, i) => <Star key={i} size={14} fill="#c5a059" color="#c5a059" />)}
             </div>
             <h1 className="text-7xl md:text-[10rem] mb-6 italic font-serif leading-none tracking-tight">
               Micalosu
