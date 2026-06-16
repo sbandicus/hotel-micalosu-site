@@ -86,10 +86,10 @@ export default function BookingSystem() {
   return (
     <div className="flex flex-col h-full bg-white rounded-2xl">
       {/* Contenitore Griglia Principale */}
-      <div className="grid lg:grid-cols-2 gap-0 min-h-[650px] overflow-hidden rounded-2xl border border-gray-100 shadow-sm items-stretch">
+      <div className="grid md:grid-cols-2 gap-0 min-h-[650px] overflow-hidden rounded-2xl border border-gray-100 shadow-sm items-stretch">
         
         {/* Colonna Sinistra: Immagine e Info Stanza */}
-        <div className="relative min-h-[350px] lg:min-h-full bg-gray-50 border-r border-gray-100 h-full overflow-hidden">
+        <div className="relative min-h-[400px] md:min-h-full bg-gray-50 border-r border-gray-100 h-full overflow-hidden">
           {selectedRoomObj && (
             <>
               <Image 
@@ -111,11 +111,11 @@ export default function BookingSystem() {
         </div>
 
         {/* Colonna Destra: Form e Selezione */}
-        <div className="p-5 sm:p-8 lg:p-12 flex flex-col justify-between bg-white">
+        <div className="p-5 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-between bg-white relative">
           {step === 1 ? (
             <div className="space-y-6 sm:space-y-8 animate-fade-in">
               <div>
-                <label className="block text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gold mb-4 text-center lg:text-left">1. Seleziona Tipologia</label>
+                <label className="block text-[8px] sm:text-[9px] font-black uppercase tracking-[0.2em] sm:tracking-[0.3em] text-gold mb-4 text-center md:text-left">1. Seleziona Tipologia</label>
                 <div className="grid grid-cols-1 gap-2">
                   {rooms.map(room => (
                     <button
@@ -155,7 +155,7 @@ export default function BookingSystem() {
                 </div>
               </div>
 
-              <div className="flex justify-center pt-2 overflow-visible">
+              <div className="flex justify-center pt-2 overflow-hidden">
                 <style jsx global>{`
                   .rdp {
                     margin: 0;
@@ -164,11 +164,14 @@ export default function BookingSystem() {
                     --rdp-background-color: #f9f6f2;
                   }
                   .rdp-months { justify-content: center; }
-                  @media (max-width: 640px) {
+                  @media (max-width: 1024px) {
                     .rdp { --rdp-cell-size: 32px; }
                   }
+                  @media (max-width: 640px) {
+                    .rdp { --rdp-cell-size: 28px; }
+                  }
                 `}</style>
-                <div className="scale-[0.85] xs:scale-[0.9] sm:scale-95 lg:scale-100 origin-center">
+                <div className="scale-[0.8] xs:scale-[0.9] sm:scale-90 md:scale-[0.85] lg:scale-100 origin-center">
                   <DayPicker
                     mode="range"
                     selected={range}
