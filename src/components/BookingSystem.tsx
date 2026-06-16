@@ -133,9 +133,9 @@ export default function BookingSystem() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[9px] font-black uppercase tracking-[0.3em] text-gold mb-4">2. Ospiti</label>
+                  <label className="block text-[9px] font-black uppercase tracking-[0.3em] text-gold mb-4 text-center sm:text-left">2. Ospiti</label>
                   <div className="flex items-center justify-between p-3 bg-beige/50 rounded-xl border border-gray-50">
                     <button onClick={() => setGuests(Math.max(1, guests - 1))} className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm hover:text-gold transition-colors"><Minus size={14} /></button>
                     <span className="font-bold text-sm">{guests}</span>
@@ -143,7 +143,7 @@ export default function BookingSystem() {
                   </div>
                 </div>
                 <div className="flex flex-col justify-end">
-                    <div className="text-right">
+                    <div className="text-center sm:text-right">
                         <span className="block text-[9px] font-black uppercase tracking-[0.3em] text-gold mb-4">Check-in / Out</span>
                         <div className="text-xs font-bold text-gray-500 py-3">
                             {range?.from ? format(range.from, 'dd/MM') : '--'} → {range?.to ? format(range.to, 'dd/MM') : '--'}
@@ -152,13 +152,15 @@ export default function BookingSystem() {
                 </div>
               </div>
 
-              <div className="flex justify-center pt-4 scale-90 lg:scale-100">
-                <DayPicker
-                  mode="range"
-                  selected={range}
-                  onSelect={setRange}
-                  disabled={{ before: new Date() }}
-                />
+              <div className="flex justify-center pt-4 overflow-x-auto max-w-full">
+                <div className="scale-[0.85] sm:scale-95 lg:scale-100 origin-center">
+                  <DayPicker
+                    mode="range"
+                    selected={range}
+                    onSelect={setRange}
+                    disabled={{ before: new Date() }}
+                  />
+                </div>
               </div>
 
               <button 

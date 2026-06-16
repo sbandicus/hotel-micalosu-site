@@ -326,7 +326,7 @@ export default function Home() {
             </div>
             <div className="lg:col-span-7">
               <ScrollReveal delay={0.2} direction="left">
-                <div className="bg-white rounded-3xl p-8 md:p-12 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.1)] border border-gray-50">
+                <div className="bg-white rounded-3xl p-4 sm:p-8 md:p-12 shadow-[0_50px_100px_-30px_rgba(0,0,0,0.1)] border border-gray-50">
                   <BookingSystem />
                 </div>
               </ScrollReveal>
