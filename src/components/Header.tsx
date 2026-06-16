@@ -3,27 +3,28 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { Menu, X, Instagram, Facebook } from 'lucide-react';
+import { Menu, X, Instagram, Facebook, Globe } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Trigger subito al montaggio per evitare stati inconsistenti
     handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: "L'Hotel", href: "#hotel" },
-    { name: "Camere", href: "#camere" },
-    { name: "Eventi", href: "#eventi" },
-    { name: "Contatti", href: "#contatti" },
+    { name: t('nav_hotel'), href: "#hotel" },
+    { name: t('nav_rooms'), href: "#camere" },
+    { name: t('nav_events'), href: "#eventi" },
+    { name: t('nav_contacts'), href: "#contatti" },
   ];
 
   return (
@@ -49,7 +50,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center space-x-12 relative z-[1100]">
+          <nav className="hidden lg:flex items-center space-x-10 relative z-[1100]">
             {navLinks.map((link) => (
               <Link 
                 key={link.name}
@@ -61,6 +62,32 @@ export default function Header() {
                 {link.name}
               </Link>
             ))}
+
+            {/* Language Switcher */}
+            <div className={`flex items-center gap-2 border-l pl-8 ${isScrolled ? 'border-gray-200' : 'border-white/20'}`}>
+              <button 
+                onClick={() => setLanguage('it')}
+                className={`text-[9px] font-black uppercase tracking-widest transition-all ${
+                  language === 'it' 
+                    ? 'text-gold' 
+                    : (isScrolled ? 'text-gray-400 hover:text-black' : 'text-white/50 hover:text-white')
+                }`}
+              >
+                IT
+              </button>
+              <span className={`text-[9px] ${isScrolled ? 'text-gray-200' : 'text-white/10'}`}>|</span>
+              <button 
+                onClick={() => setLanguage('en')}
+                className={`text-[9px] font-black uppercase tracking-widest transition-all ${
+                  language === 'en' 
+                    ? 'text-gold' 
+                    : (isScrolled ? 'text-gray-400 hover:text-black' : 'text-white/50 hover:text-white')
+                }`}
+              >
+                EN
+              </button>
+            </div>
+
             <Link 
               href="#booking" 
               className={`px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 shadow-xl hover:scale-105 active:scale-95 ${
@@ -69,21 +96,26 @@ export default function Header() {
                   : 'bg-white text-black hover:bg-gold hover:text-white'
               }`}
             >
-              Prenota Ora
+              {t('nav_book')}
             </Link>
           </nav>
 
           {/* Mobile Toggle */}
-          <button 
-            className="lg:hidden relative z-[1100]"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? (
-              <X className="text-black" size={32} strokeWidth={1} />
-            ) : (
-              <Menu className={isScrolled ? 'text-black' : 'text-white'} size={32} strokeWidth={1} />
-            )}
-          </button>
+          <div className="lg:hidden flex items-center gap-6 relative z-[1100]">
+            <div className="flex items-center gap-3">
+              <button onClick={() => setLanguage('it')} className={`text-[10px] font-bold ${language === 'it' ? 'text-gold' : (isScrolled ? 'text-gray-400' : 'text-white/60')}`}>IT</button>
+              <button onClick={() => setLanguage('en')} className={`text-[10px] font-bold ${language === 'en' ? 'text-gold' : (isScrolled ? 'text-gray-400' : 'text-white/60')}`}>EN</button>
+            </div>
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="text-black" size={32} strokeWidth={1} />
+              ) : (
+                <Menu className={isScrolled ? 'text-black' : 'text-white'} size={32} strokeWidth={1} />
+              )}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -107,7 +139,7 @@ export default function Header() {
             onClick={() => setIsMobileMenuOpen(false)}
             className="mt-8 px-12 py-5 bg-gold text-white rounded-full text-sm font-black uppercase tracking-[0.3em] shadow-2xl"
           >
-            Prenota Soggiorno
+            {t('nav_book')}
           </Link>
         </nav>
         

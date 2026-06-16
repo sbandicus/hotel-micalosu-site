@@ -9,13 +9,12 @@ import { useRef } from 'react';
 import { 
   MapPin, Phone, Mail, Instagram, Facebook, Star
 } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 
 export default function Home() {
   const heroRef = useRef(null);
+  const { t } = useLanguage();
   
-  // Rimuoviamo l'autofocus al caricamento o comportamenti che forzano lo scroll
-  // Se c'è un elemento che ruba il focus, lo neutralizziamo qui.
-
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"]
@@ -50,16 +49,16 @@ export default function Home() {
               Micalosu
             </h1>
             <p className="text-lg md:text-2xl font-light tracking-[0.5em] uppercase mb-12">
-              Un'oasi di lusso in Sardegna
+              {t('hero_subtitle')}
             </p>
             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
               <a 
                 href="#booking" 
                 className="group relative px-14 py-5 bg-gold text-white rounded-full overflow-hidden transition-all shadow-2xl"
               >
-                <span className="relative z-10 text-sm tracking-widest uppercase font-bold">Prenota Ora</span>
+                <span className="relative z-10 text-sm tracking-widest uppercase font-bold">{t('hero_cta')}</span>
                 <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                <span className="absolute inset-0 flex items-center justify-center text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 text-sm tracking-widest uppercase font-bold pointer-events-none">Inizia il viaggio</span>
+                <span className="absolute inset-0 flex items-center justify-center text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 text-sm tracking-widest uppercase font-bold pointer-events-none">{t('hero_hover_cta')}</span>
               </a>
             </div>
           </ScrollReveal>
@@ -82,9 +81,9 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <ScrollReveal>
-              <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black mb-8 block">Dove Siamo</span>
+              <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black mb-8 block">{t('intro_label')}</span>
               <h2 className="text-3xl md:text-5xl font-serif leading-snug text-gray-900 mb-12">
-                Situato a Cannigione, l'Hotel Micalosu è immerso nel verde del territorio di Arzachena e circondato da splendide colline di granito, che offrono una vista mozzafiato sull'Arcipelago di La Maddalena e il Golfo di Arzachena.
+                {t('intro_text')}
               </h2>
               <div className="w-20 h-px bg-gold/30 mx-auto" />
             </ScrollReveal>
@@ -106,15 +105,11 @@ export default function Home() {
             </ScrollReveal>
             
             <ScrollReveal direction="left">
-              <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-black mb-6 block">L'Hotel</span>
-              <h3 className="text-4xl md:text-6xl mb-10 font-serif leading-tight">Un villaggio di granito affacciato sul mare</h3>
+              <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-black mb-6 block">{t('hotel_label')}</span>
+              <h3 className="text-4xl md:text-6xl mb-10 font-serif leading-tight">{t('hotel_title')}</h3>
               <div className="space-y-8 text-gray-500 text-lg leading-relaxed mb-12 font-light">
-                <p>
-                  La struttura, sfruttando la naturale pendenza collinare del territorio che la circonda, offre ai suoi ospiti la possibilità di soggiornare sia nelle ampie camere con terrazza panoramica che si trovano all'interno del corpo principale, che nelle residenze che si estendono ad est, quasi a formare un piccolo villaggio ricco di angoli riservati e suggestivi.
-                </p>
-                <p>
-                  Questa sua particolare caratteristica architettonica, arricchita dalla presenza di un grande giardino, offre un'esperienza unica nel suo genere, in cui l'esclusività e i servizi d'eccellenza dell'Hotel si fondono con l'indipendenza delle tante camere con vista sull'Arcipelago di La Maddalena.
-                </p>
+                <p>{t('hotel_p1')}</p>
+                <p>{t('hotel_p2')}</p>
               </div>
             </ScrollReveal>
           </div>
@@ -126,9 +121,9 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
             <ScrollReveal direction="right" className="max-w-2xl">
-              <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-black mb-4 block">Le Stanze</span>
-              <h2 className="text-4xl md:text-6xl mb-6 font-serif">Camere & Dependance</h2>
-              <p className="text-gray-500 font-light text-xl italic">Le camere sono dotate dei comfort indispensabili per poter trascorrere, nel modo più piacevole possibile, tutti i momenti di riposo e ricarica della propria vacanza.</p>
+              <span className="text-gold uppercase tracking-[0.3em] text-[10px] font-black mb-4 block">{t('rooms_label')}</span>
+              <h2 className="text-4xl md:text-6xl mb-6 font-serif">{t('rooms_title')}</h2>
+              <p className="text-gray-500 font-light text-xl italic">{t('rooms_subtitle')}</p>
             </ScrollReveal>
             <ScrollReveal delay={0.3}>
               <a href="#booking" className="text-sm font-bold uppercase tracking-widest border-b-2 border-gold/20 hover:border-gold pb-2 transition-all">Vedi tutte le tipologie</a>
@@ -137,9 +132,9 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: 'Camere con Terrazza', type: 'Corpo Principale', img: '/images/suite.jpg', price: '220', desc: "Ampie camere con terrazza panoramica all'interno del corpo principale della struttura." },
-              { title: 'Dependance', type: 'Giardino Privato', img: '/images/camere.jpg', price: '180', desc: "Pi\u00f9 isolate e indipendenti rispetto alla struttura, ideali per chi desidera totale autonomia e assoluta privacy." },
-              { title: 'Vista Arcipelago', type: 'Vista Panoramica', img: '/images/giardino.jpg', price: '260', desc: "Camere con vista sull'Arcipelago di La Maddalena, in angoli riservati e suggestivi." },
+              { title: t('room_terrace_title'), type: t('room_terrace_type'), img: '/images/suite.jpg', price: '220', desc: t('room_terrace_desc') },
+              { title: t('room_dependance_title'), type: t('room_dependance_type'), img: '/images/camere.jpg', price: '180', desc: t('room_dependance_desc') },
+              { title: t('room_view_title'), type: t('room_view_type'), img: '/images/giardino.jpg', price: '260', desc: t('room_view_desc') },
             ].map((room, i) => (
               <ScrollReveal key={i} delay={i * 0.1}>
                 <div className="group bg-white h-full relative overflow-hidden transition-all duration-700 hover:-translate-y-4">
@@ -153,12 +148,12 @@ export default function Home() {
                     <div className="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-black/80 via-black/20 to-transparent text-white">
                       <span className="text-[10px] uppercase tracking-widest font-bold text-gold mb-2 block">{room.type}</span>
                       <h4 className="text-3xl font-serif mb-4">{room.title}</h4>
-                      <p className="text-xs text-white/60 flex items-center gap-2">Da <span className="text-lg font-bold text-white">€{room.price}</span> / notte</p>
+                      <p className="text-xs text-white/60 flex items-center gap-2">{t('room_price_from')} <span className="text-lg font-bold text-white">€{room.price}</span> {t('room_night')}</p>
                     </div>
                   </div>
                   <div className="p-8">
                     <p className="text-sm text-gray-400 font-light leading-relaxed mb-8">{room.desc}</p>
-                    <a href="#booking" className="block text-center py-4 border border-gray-100 text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all">Prenota Soggiorno</a>
+                    <a href="#booking" className="block text-center py-4 border border-gray-100 text-[10px] font-black uppercase tracking-widest hover:bg-black hover:text-white transition-all">{t('room_book_btn')}</a>
                   </div>
                 </div>
               </ScrollReveal>
@@ -167,22 +162,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Eventi & Matrimoni Section - EXCLUSIVE FEATURE */}
+      {/* Eventi & Matrimoni Section */}
       <section id="eventi" className="py-32 bg-white overflow-hidden">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-12 gap-16 items-center">
             <div className="lg:col-span-5 order-2 lg:order-1">
               <ScrollReveal direction="right">
-                <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black mb-6 block">Eventi</span>
-                <h2 className="text-4xl md:text-6xl mb-8 font-serif leading-tight">Oltre 30 anni di eventi indimenticabili</h2>
+                <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black mb-6 block">{t('events_label')}</span>
+                <h2 className="text-4xl md:text-6xl mb-8 font-serif leading-tight">{t('events_title')}</h2>
                 <div className="space-y-6 text-gray-600 text-lg leading-relaxed mb-12 font-light">
-                  <p>Hotel Micalosu offre eventi indimenticabili con oltre 30 anni di esperienza, specializzandosi in matrimoni. La nostra struttura unisce eleganza, bellezza naturale e servizio impeccabile per celebrazioni uniche.</p>
-                  <p>Da pionieri nel settore, offriamo servizi di alta qualità in una location pittoresca circondata dalla bellezza di Arzachena. I nostri chef esperti creano menu personalizzati utilizzando ingredienti freschi e di alta qualità. Con un impegno per un servizio impeccabile, il nostro staff dedicato si assicura che ogni dettaglio sia curato.</p>
-                  <p>Scegli Hotel Micalosu per un'esperienza indimenticabile che incarna la storia e la tradizione di Arzachena.</p>
+                  <p>{t('events_p1')}</p>
+                  <p>{t('events_p2')}</p>
+                  <p>{t('events_p3')}</p>
                 </div>
 
                 <a href="#contatti" className="inline-block px-12 py-5 border-2 border-gold text-gold rounded-full text-[10px] font-black uppercase tracking-[0.3em] hover:bg-gold hover:text-white transition-all duration-500">
-                  Contattaci per il tuo Evento
+                  {t('events_cta')}
                 </a>
               </ScrollReveal>
             </div>
@@ -213,16 +208,14 @@ export default function Home() {
         </div>
       </section>
 
-
-
       {/* Booking Form Section */}
       <section id="booking" className="py-32 bg-beige/30 relative">
         <div className="container mx-auto px-6">
           <div className="grid lg:grid-cols-12 gap-20">
             <div className="lg:col-span-5">
               <ScrollReveal direction="right">
-                <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black mb-6 block">Prenota Direttamente</span>
-                <h2 className="text-5xl font-serif mb-10">Prenota adesso</h2>
+                <span className="text-gold uppercase tracking-[0.4em] text-[10px] font-black mb-6 block">{t('book_label')}</span>
+                <h2 className="text-5xl font-serif mb-10">{t('book_title')}</h2>
                 <div className="space-y-6 text-gray-500 font-light leading-relaxed mb-10">
                   <p>Prenota direttamente dal nostro sito per usufruire dei vantaggi esclusivi:</p>
                   <ul className="space-y-4">
@@ -259,9 +252,7 @@ export default function Home() {
                 <div className="mb-10">
                   <Image src="/images/Logo-Gold.png" alt="Logo" width={180} height={60} className="object-contain" />
                 </div>
-                <p className="text-gray-500 text-sm leading-relaxed mb-10 max-w-sm">
-                  Situato a Cannigione, l'Hotel Micalosu è immerso nel verde del territorio di Arzachena e circondato da splendide colline di granito, che offrono una vista mozzafiato sull'Arcipelago di La Maddalena e il Golfo di Arzachena.
-                </p>
+                <p className="text-gray-500 text-sm leading-relaxed mb-10 max-w-sm">{t('intro_text')}</p>
                 <div className="flex gap-6">
                   <a href="https://www.instagram.com/hotelmicalosu/" target="_blank" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-gold hover:text-white hover:border-gold transition-all duration-300"><Instagram size={18} /></a>
                   <a href="https://www.facebook.com/hotelmicalosu/" target="_blank" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-gold hover:text-white hover:border-gold transition-all duration-300"><Facebook size={18} /></a>
@@ -271,7 +262,7 @@ export default function Home() {
             
             <div className="md:col-span-3">
               <ScrollReveal delay={0.1}>
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-10 text-gold">Contatti</h4>
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-10 text-gold">{t('nav_contacts')}</h4>
                 <div className="space-y-8 text-gray-400">
                   <div className="flex gap-4">
                     <MapPin size={20} className="text-gold shrink-0" />
@@ -291,15 +282,15 @@ export default function Home() {
 
             <div className="md:col-span-4">
               <ScrollReveal delay={0.2}>
-                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-10 text-gold">Novità & Offerte</h4>
-                <p className="text-xs text-gray-500 mb-8 uppercase tracking-widest leading-relaxed font-sans">Iscriviti per ricevere novità sulla Gallura e offerte riservate.</p>
+                <h4 className="text-[10px] font-black uppercase tracking-[0.4em] mb-10 text-gold">{t('footer_news')}</h4>
+                <p className="text-xs text-gray-500 mb-8 uppercase tracking-widest leading-relaxed font-sans">{t('footer_news_sub')}</p>
                 <form className="relative">
                   <input 
                     type="email" 
                     placeholder="E-MAIL" 
                     className="w-full bg-transparent border-b border-white/20 py-4 text-xs font-bold tracking-[0.3em] focus:border-gold outline-none transition-colors"
                   />
-                  <button className="absolute right-0 top-1/2 -translate-y-1/2 text-gold font-bold text-[10px] uppercase tracking-widest hover:text-white transition-colors">Iscriviti</button>
+                  <button className="absolute right-0 top-1/2 -translate-y-1/2 text-gold font-bold text-[10px] uppercase tracking-widest hover:text-white transition-colors">{t('footer_join')}</button>
                 </form>
               </ScrollReveal>
             </div>
@@ -310,8 +301,8 @@ export default function Home() {
               © 2026 Hotel Micalosu. P.IVA 02130490906. Made by Digital Luxury.
             </p>
             <div className="flex gap-10">
-              <a href="#" className="text-[9px] uppercase tracking-[0.4em] text-gray-600 hover:text-white transition-colors font-sans">Privacy</a>
-              <a href="#" className="text-[9px] uppercase tracking-[0.4em] text-gray-600 hover:text-white transition-colors font-sans">Cookies</a>
+              <a href="#" className="text-[9px] uppercase tracking-[0.4em] text-gray-600 hover:text-white transition-colors font-sans">{t('footer_privacy')}</a>
+              <a href="#" className="text-[9px] uppercase tracking-[0.4em] text-gray-600 hover:text-white transition-colors font-sans">{t('footer_cookies')}</a>
             </div>
           </div>
         </div>
